@@ -1,5 +1,6 @@
 package io.security.springsecurity;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
@@ -79,7 +80,8 @@ public class SecurityConfig {
                 //CsrfFilter, HttpSessionCsrfTokenRepository
 //                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 ;
-        http.userDetailsService(userDetailsService());
+//        http.userDetailsService(userDetailsService());
+        http.userDetailsService(customUserDetailsService());
 
         http.exceptionHandling()
 //                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
@@ -114,6 +116,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public CustomUserDetailsService customUserDetailsService(){
+        return new CustomUserDetailsService();
+    }
+
+//    @Bean
     public UserDetailsService userDetailsService(){
 
         UserDetails user1 = User.withUsername("user").password(passwordEncoder().encode("1111")).roles("USER").build();
