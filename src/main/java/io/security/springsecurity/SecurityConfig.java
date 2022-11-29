@@ -1,34 +1,26 @@
 package io.security.springsecurity;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.Arrays;
 
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Order(1)
+    SecurityFilterChain securityFilterChain1(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/user").hasRole("USER")
@@ -90,6 +82,19 @@ public class SecurityConfig {
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     response.sendRedirect("/denied");
                 });
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(0)
+    SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
+        http
+                .antMatcher("/api/**")
+                .authorizeRequests()
+                .anyRequest().authenticated();
+
+        http.httpBasic();
 
         return http.build();
     }
