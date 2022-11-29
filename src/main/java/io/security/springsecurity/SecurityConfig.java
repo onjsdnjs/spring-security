@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AnonymousAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -19,6 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
+import java.util.UUID;
 
 @EnableWebSecurity
 public class SecurityConfig {
@@ -83,6 +88,7 @@ public class SecurityConfig {
 //        http.userDetailsService(userDetailsService());
         http.userDetailsService(customUserDetailsService());
         http.authenticationProvider(customAuthenticationProvider());
+        http.authenticationManager(authenticationManager(null));
 
         http.exceptionHandling()
 //                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
@@ -124,6 +130,14 @@ public class SecurityConfig {
     @Bean
     public CustomAuthenticationProvider customAuthenticationProvider(){
         return new CustomAuthenticationProvider();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        ProviderManager ProviderManager = (ProviderManager)authenticationConfiguration.getAuthenticationManager();
+        ProviderManager.getProviders().add(customAuthenticationProvider());
+        ProviderManager.getProviders().add(new AnonymousAuthenticationProvider(UUID.randomUUID().toString()));
+        return ProviderManager;
     }
 
 //    @Bean
