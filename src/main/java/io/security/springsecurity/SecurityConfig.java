@@ -10,19 +10,24 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests()
+//                .antMatchers("/login**").permitAll()
+                .anyRequest().authenticated();
         http.formLogin()
-                .loginPage("/login")			// 사용자 정의 로그인 페이지
-                .defaultSuccessUrl("/home")				// 로그인 성공 후 이동 페이지
-                .failureUrl("/error")		              // 로그인 실패 후 이동 페이지
-                .usernameParameter("userId")			// 아이디 파라미터명 설정
-                .passwordParameter("passwd")			// 패스워드 파라미터명 설정
-                .loginProcessingUrl("/loginProc")			              // 로그인 Form Action Url
+//                .loginPage("/login")
+                .defaultSuccessUrl("/home")
+                .failureUrl("/error")
+                .usernameParameter("userId")
+                .passwordParameter("passwd")
+                .loginProcessingUrl("/loginProc")
                 .successHandler((request, response, authentication) -> {
                     System.out.println("authentication: " + authentication);
-                })		// 로그인 성공 후 핸들러
+                    response.sendRedirect("/");
+                })
                 .failureHandler((request, response, exception) -> {
                     System.out.println("authentication: " + exception.getMessage());
+//                    response.sendRedirect("/login?error=true");
+                    response.sendRedirect("/login");
                 })
                 .permitAll();
 
