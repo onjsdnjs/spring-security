@@ -54,7 +54,7 @@ public class SecurityConfig {
                 });
 
         http.sessionManagement()
-                .invalidSessionUrl("/invaild")
+//                .invalidSessionUrl("/invaild")
                 .maximumSessions(1)
 //                .maxSessionsPreventsLogin(false); // 이전세션 만료
                 .maxSessionsPreventsLogin(true) // 동시접속 차단
@@ -63,6 +63,7 @@ public class SecurityConfig {
 
                 //SessionManagementConfigurer.init()
                 //시큐리티가 세션을 생성하지 않고 사용하지 않는 것
+                //CsrfFilter, HttpSessionCsrfTokenRepository
                 .sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 ;
 
