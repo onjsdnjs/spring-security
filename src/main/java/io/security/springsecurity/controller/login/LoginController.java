@@ -1,7 +1,7 @@
 package io.security.springsecurity.controller.login;
 
 
-import io.security.corespringsecurity.domain.entity.Account;
+import io.security.springsecurity.domain.entity.Account;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

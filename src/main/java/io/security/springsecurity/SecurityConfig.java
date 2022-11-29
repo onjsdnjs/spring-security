@@ -1,3 +1,4 @@
+/*
 package io.security.springsecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +45,12 @@ public class SecurityConfig {
                 .usernameParameter("userId")
                 .passwordParameter("passwd")
                 .loginProcessingUrl("/loginProc")
-                /*.successHandler((request, response, authentication) -> {
+                */
+/*.successHandler((request, response, authentication) -> {
                     System.out.println("authentication: " + authentication);
                     response.sendRedirect("/");
-                })*/
+                })*//*
+
                 .failureHandler((request, response, exception) -> {
                     System.out.println("authentication: " + exception.getMessage());
 //                    response.sendRedirect("/login?error=true");
@@ -134,4 +137,4 @@ public class SecurityConfig {
 
         return new InMemoryUserDetailsManager(Arrays.asList(user1,user2,user3));
     }
-}
+}*/

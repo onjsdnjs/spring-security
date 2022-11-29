@@ -1,6 +1,6 @@
 package io.security.springsecurity.service;
 
-import io.security.corespringsecurity.domain.entity.Account;
+import io.security.springsecurity.domain.entity.Account;
 
 public interface UserService {
     void createUser(Account account);

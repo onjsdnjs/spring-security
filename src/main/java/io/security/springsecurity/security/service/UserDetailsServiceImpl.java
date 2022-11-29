@@ -1,7 +1,7 @@
 package io.security.springsecurity.security.service;
 
-import io.security.corespringsecurity.domain.entity.Account;
-import io.security.corespringsecurity.repository.UserRepository;
+import io.security.springsecurity.domain.entity.Account;
+import io.security.springsecurity.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

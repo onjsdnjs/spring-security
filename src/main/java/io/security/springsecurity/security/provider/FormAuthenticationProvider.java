@@ -1,7 +1,6 @@
 package io.security.springsecurity.security.provider;
 
-import io.security.corespringsecurity.security.common.FormWebAuthenticationDetails;
-import io.security.corespringsecurity.security.service.AccountContext;
+import io.security.springsecurity.security.service.AccountContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -37,11 +36,6 @@ public class FormAuthenticationProvider implements AuthenticationProvider {
 
         if (!passwordEncoder.matches(password, accountContext.getPassword())) {
             throw new BadCredentialsException("Invalid password");
-        }
-
-        String secretKey = ((FormWebAuthenticationDetails) authentication.getDetails()).getSecretKey();
-        if (secretKey == null || !secretKey.equals("secret")) {
-            throw new IllegalArgumentException("Invalid Secret");
         }
 
         return new UsernamePasswordAuthenticationToken(accountContext.getAccount(), null, accountContext.getAuthorities());
