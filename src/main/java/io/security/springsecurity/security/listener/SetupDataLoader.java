@@ -24,6 +24,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private RoleRepository roleRepository;
 
+
     @Autowired
     private ResourcesRepository resourcesRepository;
 
