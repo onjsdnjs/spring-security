@@ -3,6 +3,7 @@ package io.security.springsecurity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -56,7 +57,13 @@ public class SecurityConfig {
                 .invalidSessionUrl("/invaild")
                 .maximumSessions(1)
 //                .maxSessionsPreventsLogin(false); // 이전세션 만료
-                .maxSessionsPreventsLogin(true); // 동시접속 차단
+                .maxSessionsPreventsLogin(true) // 동시접속 차단
+                .and()
+                .sessionFixation().changeSessionId()
+
+                //SessionManagementConfigurer.init()
+                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+                ;
 
         return http.build();
     }
