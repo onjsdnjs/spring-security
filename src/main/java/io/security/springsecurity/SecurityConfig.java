@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated();
 
         http.formLogin()
-//                .loginPage("/login")
+                .loginPage("/login")
 //                .defaultSuccessUrl("/home")
 //                .failureUrl("/error")
                 .usernameParameter("userId")
