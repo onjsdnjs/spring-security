@@ -82,6 +82,7 @@ public class SecurityConfig {
                 ;
 //        http.userDetailsService(userDetailsService());
         http.userDetailsService(customUserDetailsService());
+        http.authenticationProvider(customAuthenticationProvider());
 
         http.exceptionHandling()
 //                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
