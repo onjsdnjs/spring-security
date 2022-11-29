@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -94,6 +96,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
     @Order(0)
     SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
         http
@@ -109,9 +116,9 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(){
 
-        UserDetails user1 = User.withUsername("user").password("{noop}1111").roles("USER").build();
-        UserDetails user2 = User.withUsername("sys").password("{noop}1111").roles("SYS").build();
-        UserDetails user3 = User.withUsername("admin").password("{noop}1111").roles("ADMIN").build();
+        UserDetails user1 = User.withUsername("user").password(passwordEncoder().encode("1111")).roles("USER").build();
+        UserDetails user2 = User.withUsername("sys").password(passwordEncoder().encode("1111")).roles("SYS").build();
+        UserDetails user3 = User.withUsername("admin").password(passwordEncoder().encode("1111")).roles("ADMIN").build();
 
         return new InMemoryUserDetailsManager(Arrays.asList(user1,user2,user3));
     }
