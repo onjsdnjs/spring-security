@@ -81,12 +81,12 @@ public class SecurityConfig {
                 //SessionManagementConfigurer.init()
                 //시큐리티가 세션을 생성하지 않고 사용하지 않는 것
                 //CsrfFilter, HttpSessionCsrfTokenRepository
-                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+//                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 ;
         http.userDetailsService(userDetailsService());
 
         http.exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+//                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     response.sendRedirect("/denied");
                 });
