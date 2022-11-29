@@ -62,6 +62,7 @@ public class SecurityConfig {
                 .sessionFixation().changeSessionId()
 
                 //SessionManagementConfigurer.init()
+                //시큐리티가 세션을 생성하지 않고 사용하지 않는 것
                 .sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 ;
 
