@@ -80,9 +80,7 @@ public class SecurityConfig {
                 //CsrfFilter, HttpSessionCsrfTokenRepository
 //                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 ;
-//        http.userDetailsService(userDetailsService());
-        http.userDetailsService(customUserDetailsService());
-        http.authenticationProvider(customAuthenticationProvider());
+        http.userDetailsService(userDetailsService());
 
         http.exceptionHandling()
 //                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
