@@ -20,10 +20,11 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/shop/mypage").hasRole("USER")
-                .antMatchers("/shop/admin/pay").access("hasRole('ADMIN')")
-	            .antMatchers("/shop/admin/**").access("hasRole('ADMIN') or hasRole('SYS')")
+        http
+                .authorizeRequests()
+                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/admin/pay").access("hasRole('ADMIN')")
+	            .antMatchers("/admin/**").access("hasRole('ADMIN') or hasRole('SYS')")
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -73,16 +74,16 @@ public class SecurityConfig {
                 //CsrfFilter, HttpSessionCsrfTokenRepository
                 .sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 ;
-
+        http.userDetailsService(userDetailsService());
         return http.build();
     }
 
     @Bean
     public UserDetailsService userDetailsService(){
 
-        UserDetails user1 = User.withUsername("user").password("{noop}1111").roles("ROLE_USER").build();
-        UserDetails user2 = User.withUsername("sys").password("{noop}1111").roles("ROLE_SYS").build();
-        UserDetails user3 = User.withUsername("admin").password("{noop}1111").roles("ROLE_ADMIN").build();
+        UserDetails user1 = User.withUsername("user").password("{noop}1111").roles("USER").build();
+        UserDetails user2 = User.withUsername("sys").password("{noop}1111").roles("SYS").build();
+        UserDetails user3 = User.withUsername("admin").password("{noop}1111").roles("ADMIN").build();
 
         return new InMemoryUserDetailsManager(Arrays.asList(user1,user2,user3));
     }

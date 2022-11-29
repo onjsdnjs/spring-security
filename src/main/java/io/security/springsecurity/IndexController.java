@@ -11,17 +11,17 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/shop/mypage")
-    public String mypage(){
-        return "mypage";
+    @GetMapping("/user")
+    public String user(){
+        return "user";
     }
 
-    @GetMapping("/shop/admin")
+    @GetMapping("/admin")
     public String admin(){
         return "admin";
     }
 
-    @GetMapping("/shop/admin/pay")
+    @GetMapping("/admin/pay")
     public String adminpay(){
         return "adminpay";
     }
