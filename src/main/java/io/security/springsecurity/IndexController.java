@@ -5,17 +5,20 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class IndexController {
 
     @GetMapping("/")
-    public String index(Authentication authentication, @AuthenticationPrincipal UserDetails user){
+    public String index(Model model, Authentication authentication, @AuthenticationPrincipal UserDetails user){
 
         UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("principal = " + principal);
         System.out.println("authentication = " + authentication + ", user = " + user);
+
+        model.addAttribute("user",user.getUsername());
 
         return "index";
     }
