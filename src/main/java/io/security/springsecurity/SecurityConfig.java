@@ -38,15 +38,15 @@ public class SecurityConfig {
 
         http.formLogin()
 //                .loginPage("/login")
-                .defaultSuccessUrl("/home")
-                .failureUrl("/error")
+//                .defaultSuccessUrl("/home")
+//                .failureUrl("/error")
                 .usernameParameter("userId")
                 .passwordParameter("passwd")
                 .loginProcessingUrl("/loginProc")
-                .successHandler((request, response, authentication) -> {
+                /*.successHandler((request, response, authentication) -> {
                     System.out.println("authentication: " + authentication);
                     response.sendRedirect("/");
-                })
+                })*/
                 .failureHandler((request, response, exception) -> {
                     System.out.println("authentication: " + exception.getMessage());
 //                    response.sendRedirect("/login?error=true");
