@@ -16,7 +16,6 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 //                .antMatchers("/login**").permitAll()
-                .antMatchers("/invaild").permitAll()
                 .anyRequest().authenticated();
         http.formLogin()
 //                .loginPage("/login")
@@ -51,12 +50,6 @@ public class SecurityConfig {
                     System.out.println("logout is succeed");
                     response.sendRedirect("/login");
                 });
-
-        http.sessionManagement()
-                .invalidSessionUrl("/invaild")
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(false); // 이전세션 만료
-//                .maxSessionsPreventsLogin(true); // 동시접속 차단
 
         return http.build();
     }
