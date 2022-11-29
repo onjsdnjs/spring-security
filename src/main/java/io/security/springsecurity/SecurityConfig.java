@@ -87,7 +87,7 @@ public class SecurityConfig {
                 ;
 //        http.userDetailsService(userDetailsService());
         http.userDetailsService(customUserDetailsService());
-        http.authenticationProvider(customAuthenticationProvider());
+//        http.authenticationProvider(customAuthenticationProvider());
         http.authenticationManager(authenticationManager(null));
 
         http.exceptionHandling()
@@ -135,7 +135,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         ProviderManager ProviderManager = (ProviderManager)authenticationConfiguration.getAuthenticationManager();
-        ProviderManager.getProviders().add(customAuthenticationProvider());
         ProviderManager.getProviders().add(new AnonymousAuthenticationProvider(UUID.randomUUID().toString()));
         return ProviderManager;
     }
