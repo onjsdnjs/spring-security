@@ -55,8 +55,8 @@ public class SecurityConfig {
         http.sessionManagement()
                 .invalidSessionUrl("/invaild")
                 .maximumSessions(1)
-                .maxSessionsPreventsLogin(false); // 이전세션 만료
-//                .maxSessionsPreventsLogin(true); // 동시접속 차단
+//                .maxSessionsPreventsLogin(false); // 이전세션 만료
+                .maxSessionsPreventsLogin(true); // 동시접속 차단
 
         return http.build();
     }
