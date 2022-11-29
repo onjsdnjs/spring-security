@@ -29,7 +29,6 @@ import java.util.UUID;
 public class SecurityConfig {
 
     @Bean
-    @Order(1)
     SecurityFilterChain securityFilterChain1(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
@@ -107,19 +106,6 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
-    @Bean
-    @Order(0)
-    SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
-        http
-                .antMatcher("/api/**")
-                .authorizeRequests()
-                .anyRequest().authenticated();
-
-        http.httpBasic();
-
-        return http.build();
     }
 
     @Bean
