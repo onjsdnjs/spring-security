@@ -115,16 +115,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CustomUserDetailsService customUserDetailsService(){
-        return new CustomUserDetailsService();
-    }
-
-    @Bean
-    public CustomAuthenticationProvider customAuthenticationProvider(){
-        return new CustomAuthenticationProvider();
-    }
-
-//    @Bean
     public UserDetailsService userDetailsService(){
 
         UserDetails user1 = User.withUsername("user").password(passwordEncoder().encode("1111")).roles("USER").build();
