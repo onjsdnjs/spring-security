@@ -12,6 +12,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 //                .antMatchers("/login**").permitAll()
+                .antMatchers("/anonymous").anonymous()
                 .anyRequest().authenticated();
         http.formLogin()
 //                .loginPage("/login")
