@@ -120,6 +120,11 @@ public class SecurityConfig {
         return new CustomUserDetailsService();
     }
 
+    @Bean
+    public CustomAuthenticationProvider customAuthenticationProvider(){
+        return new CustomAuthenticationProvider();
+    }
+
 //    @Bean
     public UserDetailsService userDetailsService(){
 
