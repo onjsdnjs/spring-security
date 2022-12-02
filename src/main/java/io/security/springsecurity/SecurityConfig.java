@@ -46,37 +46,8 @@ public class SecurityConfig {
 //                .anyRequest().authenticated();
                 ;
         http.formLogin();
-//        http.addFilterAt(customAuthorizationFilter(), AuthorizationFilter.class);
         return http.build();
     }
-
-    /*@Bean
-    public CustomAuthorizationFilter customAuthorizationFilter(){
-
-        HandlerMappingIntrospector mvcHandlerMappingIntrospector =
-                applicationContext.getBean("mvcHandlerMappingIntrospector", HandlerMappingIntrospector.class);
-
-        List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>> mappings
-                = new ArrayList<>();
-
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry1 = new RequestMatcherEntry<>(new MvcRequestMatcher(mvcHandlerMappingIntrospector, "/user")
-                , new CustomAuthorizationManager<>("ROLE_USER"));
-
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry2 = new RequestMatcherEntry<>(new MvcRequestMatcher(mvcHandlerMappingIntrospector, "/admin")
-                , new CustomAuthorizationManager<>("ROLE_ADMIN"));
-
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry3 = new RequestMatcherEntry<>(AnyRequestMatcher.INSTANCE
-                , new AuthenticatedAuthorizationManager<>());
-
-
-        mappings.add(requestMatcherEntry1);
-        mappings.add(requestMatcherEntry2);
-        mappings.add(requestMatcherEntry3);
-
-        CustomRequestMatcherDelegatingAuthorizationManager authorizationManager = new CustomRequestMatcherDelegatingAuthorizationManager(mappings);
-
-        return new CustomAuthorizationFilter(authorizationManager);
-    }*/
 
     @Bean
     public AuthorizationManager<RequestAuthorizationContext> authorizationManager(HandlerMappingIntrospector introspector){
@@ -99,26 +70,4 @@ public class SecurityConfig {
 
         return new CustomRequestMatcherDelegatingAuthorizationManager(mappings);
     }
-
-   /* @Bean
-    AuthorizationManager<RequestAuthorizationContext> requestMatcherAuthorizationManager(HandlerMappingIntrospector introspector) {
-        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
-        RequestMatcher permitAll =
-                new AndRequestMatcher(
-                        mvcMatcherBuilder.pattern("/resources/**"),
-                        mvcMatcherBuilder.pattern("/signup"),
-                        mvcMatcherBuilder.pattern("/about"));
-        RequestMatcher admin = mvcMatcherBuilder.pattern("/admin/**");
-        RequestMatcher db = mvcMatcherBuilder.pattern("/db/**");
-        RequestMatcher any = AnyRequestMatcher.INSTANCE;
-        AuthorizationManager<HttpServletRequest> manager = RequestMatcherDelegatingAuthorizationManager.builder()
-                .add(permitAll, (authentication,object) -> new AuthorizationDecision(true))
-                .add(admin, AuthorityAuthorizationManager.hasRole("ADMIN"))
-                .add(db, AuthorityAuthorizationManager.hasRole("DBA"))
-                .add(any, new AuthenticatedAuthorizationManager<>())
-                .build();
-
-
-        return (authentication, context) -> manager.check(authentication,context.getRequest());
-    }*/
 }

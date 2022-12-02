@@ -16,8 +16,6 @@ import java.util.function.Supplier;
 
 public class CustomAuthorizationManager<T> implements AuthorizationManager<T> {
 
-    private static final String ROLE_PREFIX = "ROLE_";
-
     private final List<GrantedAuthority> authorities;
 
     private RoleHierarchy roleHierarchy = new NullRoleHierarchy();
