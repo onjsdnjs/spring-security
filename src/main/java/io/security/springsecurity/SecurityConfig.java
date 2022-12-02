@@ -55,13 +55,16 @@ public class SecurityConfig {
         List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>> mappings
                 = new ArrayList<>();
 
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry1 = new RequestMatcherEntry<>(new MvcRequestMatcher(introspector, "/user")
+        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry1 =
+                new RequestMatcherEntry<>(new MvcRequestMatcher(introspector, "/user")
                 , new CustomAuthorizationManager<>("ROLE_USER"));
 
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry2 = new RequestMatcherEntry<>(new MvcRequestMatcher(introspector, "/admin")
+        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry2 =
+                new RequestMatcherEntry<>(new MvcRequestMatcher(introspector, "/admin")
                 , new CustomAuthorizationManager<>("ROLE_ADMIN"));
 
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry3 = new RequestMatcherEntry<>(AnyRequestMatcher.INSTANCE
+        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry3 =
+                new RequestMatcherEntry<>(AnyRequestMatcher.INSTANCE
                 , new AuthenticatedAuthorizationManager<>());
 
         mappings.add(requestMatcherEntry1);
