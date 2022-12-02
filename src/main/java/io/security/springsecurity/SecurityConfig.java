@@ -78,18 +78,16 @@ public class SecurityConfig {
         return new CustomAuthorizationFilter(authorizationManager);
     }*/
 
-    /*@Bean
-    public AuthorizationManager<RequestAuthorizationContext> authorizationManager(){
-
-        HandlerMappingIntrospector mvcHandlerMappingIntrospector = applicationContext.getBean("mvcHandlerMappingIntrospector", HandlerMappingIntrospector.class);
+    @Bean
+    public AuthorizationManager<RequestAuthorizationContext> authorizationManager(HandlerMappingIntrospector introspector){
 
         List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>> mappings
                 = new ArrayList<>();
 
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry1 = new RequestMatcherEntry<>(new MvcRequestMatcher(mvcHandlerMappingIntrospector, "/user")
+        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry1 = new RequestMatcherEntry<>(new MvcRequestMatcher(introspector, "/user")
                 , new CustomAuthorizationManager<>("ROLE_USER"));
 
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry2 = new RequestMatcherEntry<>(new MvcRequestMatcher(mvcHandlerMappingIntrospector, "/admin")
+        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry2 = new RequestMatcherEntry<>(new MvcRequestMatcher(introspector, "/admin")
                 , new CustomAuthorizationManager<>("ROLE_ADMIN"));
 
         RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry3 = new RequestMatcherEntry<>(AnyRequestMatcher.INSTANCE
@@ -100,9 +98,9 @@ public class SecurityConfig {
         mappings.add(requestMatcherEntry3);
 
         return new CustomRequestMatcherDelegatingAuthorizationManager(mappings);
-    }*/
+    }
 
-    @Bean
+   /* @Bean
     AuthorizationManager<RequestAuthorizationContext> requestMatcherAuthorizationManager(HandlerMappingIntrospector introspector) {
         MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
         RequestMatcher permitAll =
@@ -119,6 +117,8 @@ public class SecurityConfig {
                 .add(db, AuthorityAuthorizationManager.hasRole("DBA"))
                 .add(any, new AuthenticatedAuthorizationManager<>())
                 .build();
+
+
         return (authentication, context) -> manager.check(authentication,context.getRequest());
-    }
+    }*/
 }
