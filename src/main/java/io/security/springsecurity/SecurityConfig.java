@@ -48,29 +48,5 @@ public class SecurityConfig {
         http.formLogin();
         return http.build();
     }
-
-    @Bean
-    public AuthorizationManager<RequestAuthorizationContext> authorizationManager(HandlerMappingIntrospector introspector){
-
-        List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>> mappings
-                = new ArrayList<>();
-
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry1 =
-                new RequestMatcherEntry<>(new MvcRequestMatcher(introspector, "/user")
-                , new CustomAuthorizationManager<>("ROLE_USER"));
-
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry2 =
-                new RequestMatcherEntry<>(new MvcRequestMatcher(introspector, "/admin")
-                , new CustomAuthorizationManager<>("ROLE_ADMIN"));
-
-        RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>> requestMatcherEntry3 =
-                new RequestMatcherEntry<>(AnyRequestMatcher.INSTANCE
-                , new AuthenticatedAuthorizationManager<>());
-
-        mappings.add(requestMatcherEntry1);
-        mappings.add(requestMatcherEntry2);
-        mappings.add(requestMatcherEntry3);
-
-        return new CustomRequestMatcherDelegatingAuthorizationManager(mappings);
-    }
 }
+
